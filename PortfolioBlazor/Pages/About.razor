@@ -1,0 +1,68 @@
+﻿
+
+<section id="about" class="about">
+    <div class="container" data-aos="fade-up">
+        @if (User != null)
+        {
+            <div class="section-title">
+                <h2>About</h2>
+                <p>@User.About</p>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-4">
+                    <img src="@User.Image" class="img-fluid" alt="@User.Name" style="height:350px">
+                </div>
+                <div class="col-lg-8 pt-4 pt-lg-0 content">
+                    <h3>@User.JobTitle.</h3>
+                    <p class="font-italic">
+                        @User.Descreption
+                    </p>
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <ul>
+                                <li><i class="icofont-rounded-right"></i> <strong>Birthday:</strong> @User.Birthdate.ToString("dd MMM yyyy")</li>
+                                @foreach (var item in User.Phones)
+                                {
+                                    <li><i class="icofont-rounded-right"></i> <strong>Phone:</strong> @item.PhoneNumber</li>
+                                }
+                                @foreach (var item in User.Address)
+                                {
+                                    <li><i class="icofont-rounded-right"></i> <strong>Address:</strong> @item.City, @item.Country</li>
+                                }
+                                <li><i class="icofont-rounded-right"></i> <strong>Faculty:</strong> @User.Faculty, @User.University</li>
+
+                            </ul>
+                        </div>
+                        <div class="col-lg-7">
+                            <ul>
+                                <li><i class="icofont-rounded-right"></i> <strong>Age:</strong> 23</li>
+                                <li><i class="icofont-rounded-right"></i> <strong>Degree:</strong> @User.Degree</li>
+
+                                <li>
+                                    <i class="icofont-rounded-right"></i> <strong>Email:</strong>
+                                    <a href="mailto:@User.Email">
+                                        @User.Email
+                                    </a>
+                                </li>
+                                @foreach (var item in User.Languages)
+                                {
+                                    <li><i class="icofont-rounded-right"></i> <strong>Languages:</strong> @item.LanguageName, @item.LanguageLevel</li>
+                                }
+                                <li><i class="icofont-rounded-right"></i> <strong>Website:</strong><a href="@User.Website">@User.Website</a> </li>
+                                <li><i class="icofont-rounded-right"></i> <strong>Freelance:</strong> @User.Freelance</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+</section>
+
+
+
+@code{
+    [Parameter] public User User { get; set; }
+}

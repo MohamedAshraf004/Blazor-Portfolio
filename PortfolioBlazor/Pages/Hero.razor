@@ -1,0 +1,24 @@
+﻿<!-- ======= Hero Section ======= -->
+<section id="hero" class="d-flex flex-column justify-content-center">
+    <div class="container" data-aos="zoom-in" data-aos-delay="100">
+        @if (User != null)
+        {
+            <h1>@User.Name</h1>
+            <p>I'm <span class="typed" data-typed-items="Developer">@User.JobTitle</span></p>
+            <div class="social-links">
+                @if (User.Socials != null && User.Socials.Count > 0)
+                {
+                    @foreach (var social in User.Socials)
+                    {
+                        <a href="@(social.SocialUrl)" target="_blank" class="@(social.Class)"><i class="@(social.FontAweSome)"></i></a>
+                    }
+                }
+            </div>
+        }
+
+    </div>
+</section>
+<!-- End Hero -->
+@code{
+    [Parameter] public User User { get; set; }
+}

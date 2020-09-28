@@ -1,0 +1,47 @@
+﻿@if (Projects != null)
+{
+    <section id="portfolio" class="portfolio section-bg">
+        <div class="container" data-aos="fade-up">
+
+            <div class="section-title">
+                <h2>Portfolio</h2>
+                <p>Projects implemented by asp.net core mvc, asp.net core razor pages, asp.net core web api and blazor.</p>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12 d-flex justify-content-center" data-aos="fade-up" data-aos-delay="100">
+                    <ul id="portfolio-flters">
+                        <li data-filter=".filter-web-active">Web</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
+
+                @foreach (var project in Projects)
+                {
+                    <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+                        <div class="portfolio-wrap">
+                            <img src="assets/img/spicyapp.jpg" class="img-fluid" alt="@project.Name">
+                            <div class="portfolio-info">
+                                <h4>@project.Name</h4>
+                                <p>@project.Description</p>
+                                <div class="portfolio-links">
+                                    <a href="@project.Image" target="_blank" data-gall="portfolioGallery" class="venobox" title="App 1"><i class="bx bx-plus"></i></a>
+                                    <a href="@project.Website" target="_blank" data-gall="portfolioDetailsGallery" data-vbtype="iframe" class="venobox" title="Portfolio Details"><i class="bx bx-link"></i></a>
+                                    <a href="@project.Github" target="_blank" data-gall="portfolioDetailsGallery" data-vbtype="iframe" class="venobox" title="Portfolio Github"><i class="bx bx-link"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+
+            </div>
+
+        </div>
+    </section>
+}
+@code{
+    [Parameter] public List<Project> Projects { get; set; }
+}

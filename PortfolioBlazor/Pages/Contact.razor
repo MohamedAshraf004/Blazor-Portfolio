@@ -1,0 +1,104 @@
+﻿
+
+<section id="contact" class="contact" style="margin-top:-40px">
+    <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+            <h2>Contact</h2>
+        </div>
+
+        <div class="row mt-1">
+
+            @if (User != null)
+            {
+                <div class="col-lg-4">
+                    <div class="info">
+                        <div class="address">
+                            <i class="icofont-google-map"></i>
+                            <h4>Location:</h4>
+                            @foreach (var item in User.Address)
+                            {
+                                <p>@item.Region, @item.City, @item.Country</p>
+
+                            }
+                        </div>
+
+                        <div class="email">
+                            <i class="icofont-envelope"></i>
+                            <h4>Email:</h4>
+                            <p>@User.Email</p>
+                        </div>
+
+                        <div class="phone">
+                            <i class="icofont-phone"></i>
+                            <h4>Call:</h4>
+                            @foreach (var item in User.Phones)
+                            {
+                                <p>@item.PhoneNumber</p>
+
+                            }
+                        </div>
+
+                    </div>
+
+                </div>
+
+            }
+            <div class="col-lg-8 mt-5 mt-lg-0">
+
+                <EditForm Model="Visitor" OnValidSubmit="HandleValidSubmit">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+                    <div class="form-row">
+                        <div class="col-md-6 form-group">
+                            <InputText type="text" name="name" class="form-control" id="name" placeholder="Your Name" @bind-Value="Visitor.Name" />
+                            <span class="text-danger"><ValidationMessage For="()=>Visitor.Name" /></span>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <InputText @bind-Value="Visitor.Email" class="form-control" name="email" id="email" placeholder="Your Email" />
+                            <span class="text-danger"><ValidationMessage For="()=>Visitor.Email" /></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <InputText @bind-Value="Visitor.Subject" type="text" class="form-control" name="subject" id="subject" placeholder="Subject" />
+                        <span class="text-danger"><ValidationMessage For="()=>Visitor.Subject" /></span>
+                    </div>
+                    <div class="form-group">
+                        <InputTextArea @bind-Value="Visitor.Message" class="form-control" name="message" rows="5" placeholder="Message" />
+                        <span class="text-danger"><ValidationMessage For="()=>Visitor.Message" /></span>
+                    </div>
+                    @if (MsgSuccess)
+                    {
+                        <div class="mb-3">
+                            <div class="sent-message text-success">Your message has been sent. Thank you!</div>
+                        </div>
+                    }
+                    <div class="text-center  justify-content-center"><button class="bx bxs-message-square-add btn btn-primary" type="submit">Send Message</button></div>
+                </EditForm>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+@code{
+    [Parameter] public User User { get; set; }
+    public Visitor Visitor { get; set; } = new Visitor();
+    public bool MsgSuccess { get; set; } = false;
+    [Inject] public PortfolioBlazor.Data.ApplicationDbContext dbContext { get; set; }
+
+    public async Task HandleValidSubmit()
+    {
+        await dbContext.Visitors.AddAsync(Visitor);
+        if (await dbContext.SaveChangesAsync() > 0)
+        {
+            MsgSuccess = true;
+            Visitor = new Visitor();
+        }
+
+
+    }
+
+}

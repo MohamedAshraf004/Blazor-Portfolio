@@ -1,0 +1,86 @@
+﻿<!-- Start Awards & Honors Area Area -->
+
+@if (Awards != null)
+{
+    <section class="job-area section-gap-top section-gap-bottom-90" style="margin-top:-55px">
+        <div class="container">
+            <div class="row d-flex">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h2>Awards & Honors</h2>
+                        <p>
+                            Getting awards it's amazing.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                @foreach (var item in Awards)
+                {
+
+                    <div class="col-lg-6">
+                        <div class="single-award">
+                            <div class="top-sec d-flex justify-content-between">
+                                <div class="top-left">
+                                    <h4>@item.Descriprion</h4>
+                                    <p>Date: @item.DateTime.ToShortDateString()</p>
+                                </div>
+                                <div class="top-right">
+                                    <a href="#" class="primary-btn" data-text="@item.DateTime.ToShortDateString()">
+                                        <span>@item.DateTime.ToShortDateString()</span>
+                                    </a>
+                                </div>
+                            </div>
+                            @if (item.Media != null || item.Media != "")
+                            {
+                                <div class="bottom-sec wow fadeIn" data-wow-duration="2s">
+                                    <br />
+                                    <p class="mb-4"><button @onclick="Showmedia" class="readmore btn @btnCss">@ButtonText</button></p>
+                                </div>
+
+                                if (ShowMedia)
+                                {
+                                    <div class="embed-responsive embed-responsive-16by9">
+                                        <iframe class="embed-responsive-item pause fa-pause-circle ti-control-pause"
+                                                src="@item.Media"></iframe>
+                                    </div>
+                                }
+
+
+
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+
+
+}
+
+
+<!-- End Awards & Honors Area Area -->
+
+@code{
+    [Parameter] public List<Honors> Awards { get; set; }
+    public bool ShowMedia { get; set; } = false;
+    public string ButtonText { get; set; } = "Show Media";
+    public string btnCss { get; set; } = "btn-info";
+    void Showmedia()
+    {
+        ShowMedia = !ShowMedia;
+        if (ShowMedia)
+        {
+            ButtonText = "Hide Media";
+            btnCss = "btn-danger";
+        }
+        else
+        {
+            ButtonText = "Show Media";
+            btnCss = "btn-info";
+        }
+        StateHasChanged();
+    }
+}

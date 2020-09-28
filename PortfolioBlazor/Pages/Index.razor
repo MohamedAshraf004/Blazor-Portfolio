@@ -1,0 +1,55 @@
+﻿@page "/"
+@inherits IndexBase
+@if (User != null)
+{
+    <Hero User="User" />
+
+
+
+    <!-- Start #main -->
+    <main id="main">
+
+        <!-- ======= About Section ======= -->
+        <About User="User" />
+        <!-- End About Section -->
+        <!-- ======= Facts Section ======= -->
+        <Facts User="User" />
+        <!-- End Facts Section -->
+        <!-- ======= Skills Section ======= -->
+
+        <Skills UserSkills="USkills" />
+
+        <!-- End Skills Section -->
+        <!-- ======= Resume Section ======= -->
+
+        <Resume />
+
+        <!-- End Resume Section -->
+        <!-- ======= Portfolio Section ======= -->
+        <Portfolio Projects="User.Projects" />
+        <!-- End Portfolio Section -->
+        <!-- ======= Services Section ======= -->
+
+        <Services />
+        <!-- End Services Section -->
+        <!-- .Start site-section -->
+
+        <Internship Internships="User.Internships" />
+        <!-- .END site-section -->
+
+
+        <Award Awards="User.Honors" />
+
+
+        <!-- ======= Contact Section ======= -->
+        <Contact User="User" />
+        <!-- End Contact Section -->
+
+    </main>
+    <!-- End #main -->
+
+    <Footer User="User" />
+
+
+
+}
